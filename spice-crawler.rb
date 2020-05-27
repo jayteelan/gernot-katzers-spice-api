@@ -19,3 +19,7 @@ puts "Latin name: #{latin_name}"
 part_used=page.css('a[name="part"] p.dd')
 # [1].text[1..-1]
 puts "Part used: #{part_used}"
+
+info_arr=page.css('p.dd').text.split('\n')
+puts JSON.pretty_generate(info_arr)
+#.select {|info| info.length>3}
