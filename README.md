@@ -7,6 +7,10 @@ extensive and well-written ethnobotanical background information, including orga
 
 ## Change log
 
+### 27. May, 2020
+
+- began crawling spice pages from English spice index page; scraping is hindered by inconsistent page layout and limited use of class names on HTML tags.
+
 #### 21. May, 2020
 
 - project initialized with a basic web scraper for the [English spice index page](http://gernot-katzers-spice-pages.com/engl/spice_small.html)
