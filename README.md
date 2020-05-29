@@ -7,6 +7,10 @@ extensive and well-written ethnobotanical background information, including orga
 
 ## Change log
 
+### 29. May, 2020
+
+- `spice_crawler` scrapes main body text and parses into a hash with each section as an item; captions for inline images still appear in text.
+
 ### 27. May, 2020
 
 - began crawling spice pages from English spice index page; scraping is hindered by inconsistent page layout and limited use of class names on HTML tags.
