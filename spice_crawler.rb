@@ -13,7 +13,6 @@ all_data=File.new('all_data.json','w')
 hash_data=[]
 retrieved_records=[]
 
-######## REFACTOR CODE BELOW TO LOOP INDICES FROM 0 TO (spice_data.length-1)
 spice_data.map{|el|
 	# get url from first object in spice_data array and open in Nokogiri
 	url=el['url']
@@ -39,25 +38,22 @@ spice_data.map{|el|
 		end
 
 		# get an array of strings from section headings
-		section_arr=page.css('dt b').map{|sect| downcase_kebab(sect.text)}[0..-2]
+		hed_arr=page.css('dt b').map{|sect| downcase_kebab(sect.text)}[0..-2]
 
-		# section_arr.map{|sect| sect}
 
 		# get an array of strings from informational paragraphs
 		info_arr=page.css('dd').map{|p| p.text[1..-1].gsub!(/[\n]/," ")}[0..-2]
 
-		# create a hash with section_arr as keys and info_arr as values
-		spice_hash.merge!(section_arr.zip(info_arr).to_h)
+		# create a hash with hed_arr as keys and info_arr as values and merge into spice_hash
+		spice_hash.merge!(hed_arr.zip(info_arr).to_h)
 
-		##### SHOVEL spice_hash RESULTS INTO AN ARRAY
+		# shovel spice_hash into hash_data
 		hash_data<<spice_hash
 		retrieved_records<<url
 		puts "#{el['name']} added"
-
-		# export to JSON
-		# File.open("#{downcase_kebab(spice_hash[:'common-name'])}-info_arr.json",'w') << JSON.pretty_generate(spice_hash)
-		File.open("all_data.json",'w') << JSON.pretty_generate(hash_data)
 	end
 }
 
-puts "#{retrieved_records.length} records retrieved"
+# export to JSON
+File.open("all_data.json",'w') << JSON.pretty_generate(hash_data)
+puts "#{retrieved_records.length} unique records retrieved"
