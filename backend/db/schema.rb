@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_06_171821) do
+ActiveRecord::Schema.define(version: 2020_06_06_180341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,4 +41,73 @@ ActiveRecord::Schema.define(version: 2020_06_06_171821) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "constituents", force: :cascade do |t|
+    t.bigint "spice_id", null: false
+    t.string "compound"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["spice_id"], name: "index_constituents_on_spice_id"
+  end
+
+  create_table "families", force: :cascade do |t|
+    t.bigint "spice_id", null: false
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["spice_id"], name: "index_families_on_spice_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.bigint "spice_id", null: false
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "caption"
+    t.index ["spice_id"], name: "index_images_on_spice_id"
+  end
+
+  create_table "origins", force: :cascade do |t|
+    t.bigint "spice_id", null: false
+    t.string "area"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["spice_id"], name: "index_origins_on_spice_id"
+  end
+
+  create_table "parts", force: :cascade do |t|
+    t.bigint "spice_id", null: false
+    t.string "part"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["spice_id"], name: "index_parts_on_spice_id"
+  end
+
+  create_table "spice_constituents", force: :cascade do |t|
+    t.bigint "spice_id", null: false
+    t.bigint "constituent_id", null: false
+    t.string "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["constituent_id"], name: "index_spice_constituents_on_constituent_id"
+    t.index ["spice_id"], name: "index_spice_constituents_on_spice_id"
+  end
+
+  create_table "spices", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "etymology"
+    t.string "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "constituents", "spices"
+  add_foreign_key "families", "spices"
+  add_foreign_key "images", "spices"
+  add_foreign_key "origins", "spices"
+  add_foreign_key "parts", "spices"
+  add_foreign_key "spice_constituents", "constituents"
+  add_foreign_key "spice_constituents", "spices"
 end
