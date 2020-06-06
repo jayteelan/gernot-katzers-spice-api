@@ -7,6 +7,11 @@ extensive and well-written ethnobotanical background information, including orga
 
 ## Change log
 
+### 6. Jun, 2020
+
+- moved web scraper files to a new directory
+- initial setup of Rails backend with ActiveAdmin CMS
+
 ### 1. Jun, 2020
 
 - data retrieved from all pages, skipping over duplicate entries
